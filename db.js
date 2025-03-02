@@ -3,7 +3,7 @@ const students = [
         id : 1,
         nombre: "Alex Pena",
         imagen: "Alex Pena.jpeg",
-        experto: "Java",
+        experto: "JavaScript",
         ingles: "Beginner",
         sueldo: 50
     },
@@ -43,10 +43,26 @@ const students = [
     ,
     {
         id : 6,
-        nombre: "tecno2",
-        imagen: "noPhoto.jpg",
-        experto: "Net",
+        nombre: "Juan",
+        imagen: "juan.jpeg",
+        experto: "Java",
         ingles: "Advanced",
         sueldo: 70
+    },
+    {
+        id : 7,
+        nombre: "Maria",
+        imagen: "tecno3.jpeg",
+        experto: "Java",
+        ingles: "Advanced",
+        sueldo: 120
+    },
+    {
+        id : 8,
+        nombre: "Developer",
+        imagen: "tecno1.jpeg",
+        experto: "Java",
+        ingles: "Advanced",
+        sueldo: 120
     }
 ]

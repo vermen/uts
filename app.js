@@ -1,5 +1,12 @@
 console.log(students);
 
+/* 5. Selectores */
+
+const selectorNombre = document.querySelector('#nombre');
+const selectorExperto = document.querySelector('#experto');
+const selectorSueldo = document.querySelector('#sueldo');
+const selectorNivelIngles = document.querySelector('#nivelIngles');
+
 /* 1.  Llenar dinamicamente select de nombres */
 
 students.forEach((student)=>{
@@ -21,32 +28,63 @@ for (let i = min; i <= max; i++ ){
     document.querySelector('#sueldo').appendChild(opcion);
 } 
 
-/* 3. event listeners */
+/* 4. guardar valores seleccionados en ub objeto literal */
+
+const criteriosSeleccionados = {
+  nombre : "",
+  experto: "",
+  sueldo: "",
+  ingles: "",
+}
+
+/* 6. Event listeners filtros */
+selectorNombre.addEventListener('input', (e)=>{
+  criteriosSeleccionados.nombre = e.target.value
+  /* 7. llamado a funcion alto nivel de filtros */
+  filtrarUteista();
+});
+selectorExperto.addEventListener('input', (e)=>{
+  criteriosSeleccionados.experto = e.target.value
+  filtrarUteista();
+});
+selectorSueldo.addEventListener('input', (e)=>{
+  criteriosSeleccionados.sueldo = e.target.value
+});
+selectorNivelIngles.addEventListener('input', (e)=>{
+  criteriosSeleccionados.ingles = e.target.value
+});
+
+
+
+/* 3. event listeners DOM */
 
 document.addEventListener('DOMContentLoaded', ()=>{
     showStudents(students);
+    console.log(criteriosSeleccionados);
 })
 
 function showStudents(students){
     const cardContainer = document.querySelector('#tarjetas');
+    limpiar();
     students.forEach((student)=>{
+      const {imagen, nombre, experto, ingles, sueldo} = student
         const studentHtml = document.createElement('p');
         studentHtml.innerHTML = `
              <figure class="student">
-            <img src="img/${student.imagen}" alt="Student" />
+            <img src="img/${imagen}" alt="Student" />
             <div class="student-box">
-              <h3>${student.nombre}</h3>
+              <h3>${nombre}</h3>
               <ul class="student-details">
                 <li>
-                  <span>${student.experto}</span>
+                  <span>${experto}</span>
                 </li>
                 <br/>
                 <li>
-                <strong>${student.ingles}</strong>
+                <strong>${ingles}</strong>
                 </li>
               </ul>
               <div class="student-price">
-                <strong>$${student.sueldo}/hora</strong>
+                <strong>$${sueldo}/hora</strong>
                 <a href="#" class="btn btn--small">Contratar</a>
               </div>
             </div>
@@ -54,4 +92,38 @@ function showStudents(students){
         `;
         cardContainer.appendChild(studentHtml);
     })
+}
+
+
+/* 7.1 Declaración de cunfion filter de alto nivel */
+
+function filtrarUteista(){
+  const resultado = students
+  .filter(filtrarNombre)
+  .filter(filtrarExperto)
+  console.log(resultado);
+  showStudents(resultado);
+}
+
+function filtrarNombre(student){
+  if (criteriosSeleccionados.nombre){
+      return student.nombre === criteriosSeleccionados.nombre
+  } else{
+    return student
+  }
+}
+
+function filtrarExperto(student){
+  if (criteriosSeleccionados.experto){
+    return student.experto === criteriosSeleccionados.experto
+  } else {
+    return student
+  }
+}
+
+function limpiar(){
+  let z = document.querySelectorAll('p');
+  for(let v = 0; v < z.length; v++){
+    z[v].remove();
+  }
 }
