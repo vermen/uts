@@ -59,7 +59,7 @@ const students = [
     },
     {
         id : 8,
-        nombre: "Developer",
+        nombre: "Carlos",
         imagen: "tecno1.jpeg",
         experto: "Java",
         ingles: "Advanced",

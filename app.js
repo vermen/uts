@@ -85,7 +85,7 @@ function showStudents(students){
               </ul>
               <div class="student-price">
                 <strong>$${sueldo}/hora</strong>
-                <a href="#" class="btn btn--small">Contratar</a>
+                <a href="#" class="btn btn--small boton">Contratar</a>
               </div>
             </div>
           </figure>
@@ -126,4 +126,55 @@ function limpiar(){
   for(let v = 0; v < z.length; v++){
     z[v].remove();
   }
+}
+
+/* HIRE */
+/* array contenedor de estudiantes */
+let arrayCards = [];
+/* selectores */
+const card = document.querySelector('#tarjetas');
+const tbody = document.querySelector('tbody')
+/* event listeners */
+card.addEventListener('click', selectUteista);
+
+/* Funcion para seleccionar card (tarjeta=uteista) */
+function selectUteista(e){
+  e.preventDefault();
+  if (e.target.classList.contains('boton')){
+    const electedUteista = e.target.parentElement.parentElement.parentElement
+    /* console.log(electedUteista); */
+    detailUteista(electedUteista);
+  }
+}
+
+/* funcion para insertar en un objeto los atributos de cada elemento html 
+para guardarlos en propiedas de un objeto */
+function detailUteista(electedUteista){
+  const objectUteista = {
+    imagen: electedUteista.querySelector('img').src,
+    nombre: electedUteista.querySelector('h3').textContent,
+    experto: electedUteista.querySelector('span').textContent,
+    ingles: electedUteista.querySelector('li strong').textContent,
+    sueldo: electedUteista.querySelector('.student-price strong').textContent
+  }
+  arrayCards = [...arrayCards , objectUteista]
+  console.log(arrayCards);
+  HiredUteistasInjecting();
+}
+
+function HiredUteistasInjecting(){
+  arrayCards.forEach((card)=>{
+    const {imagen, nombre, experto, ingles, sueldo} = card;
+    const row = document.createElement('tr');
+    row.innerHTML = `
+    <td>
+      <img src="${imagen}">
+    </td>
+    <td>${nombre}</td>
+    <td>${experto}</td>
+    <td>${ingles}</td>
+    <td>${sueldo}</td>
+    `;
+    tbody.appendChild(row)
+  })
 }
